@@ -1,0 +1,79 @@
+<% include ./header.ejs %>
+ <main class="mn-inner">
+                <div class="row">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="col s12">
+                        <div class="page-title">Form Elements</div>
+                    </div>
+                    <div class="col s12 m12 l8">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="row">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">mode_edit</i>
+                                                <textarea name="title" class="materialize-textarea"></textarea>
+                                                <label for="title">Tieu de</label>
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <textarea name="content_mini" class="materialize-textarea" length="270"></textarea>
+                                                <label for="content_mini">Noi dung gioi thieu</label>
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <textarea id="content" name="content"></textarea>
+                                                <script type="text/javascript">
+                                                    CKEDITOR.replace('content', {
+                                                        filebrowserUploadUrl: 'admin/uploader'
+                                                    });
+                                                 </script>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m12 l4">
+                 <div class="card">
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col s12">
+                                    <label>Noi bat?</label>
+                                    <div class="switch m-b-md">
+                                            <label>
+                                                Off
+                                                <input type="checkbox" name="noibat">
+                                                <span class="lever"></span>
+                                                On
+                                            </label>
+                                        </div>
+
+                                     <div class="input-field col s12">
+                                            <select name="type">
+                                            <option value="" disabled selected>Thuoc loai</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                        </select>
+                                    
+                                            <div class="file-field input-field">
+                                                <div class="btn red lighten-1">
+                                                    <span>File</span>
+                                                    <input type="file" name="file">
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate" type="text">
+                                                </div>
+                                            </div>
+                                       
+                                    </div>
+                                    <button type="submit" class="btn blue">Dang bai viet</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </main>
+<% include ./footer.ejs %>
