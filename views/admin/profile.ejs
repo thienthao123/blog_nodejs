@@ -1,0 +1,47 @@
+<% include ./header.ejs %>
+<main class="mn-inner">
+                <div class="row">
+                    <div class="col s12 m4 l3">
+                        <div class="card">
+                            <div class="card-content center-align">
+                                <img src="<%=user.avt%>" class="responsive-img circle" width="128px" alt="">
+                                <p class="m-t-lg flow-text"><%= user.lastname %> <%= user.firstname %></p>
+                                <% user.work.forEach(function(work){ %>
+                                <div class="chip m-t-sm blue-grey white-text"><%=work%></div>
+                                <% }) %>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                            <span class="card-title"><i class="tiny material-icons">email</i><%= user.email2 %></span>
+                            <span class="card-title"><%= user.email %></span>
+                            <span class="card-title"><%= user.facebook %></span>
+                            <span class="card-title">Số bài viết <%= user.sobaiviet %></span>
+                            <hr>
+                            <span class="card-title"><i class="material-icons prefix">mode_edit</i> <a href="admin/profile/edit"> Chỉnh sửa </a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m12 l9">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Hover</span>
+                                <p>The <code>hoverable</code> is a hover class that adds an animation for box shadow as seen below. It can be used on most elements, but meant for use on cards.</p><br>
+                                <div class="card hoverable small">
+                                    <div class="card-image">
+                                        <img src="assets/images/card-image3.jpg" alt="">
+                                        <span class="card-title">Card Title</span>
+                                    </div>
+                                    <div class="card-content">
+                                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="#">This is a link</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+<% include ./footer.ejs %>

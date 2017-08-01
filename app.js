@@ -19,6 +19,8 @@ const admin = require('./routes/admin')
 const socket = require('./routes/socket')
 const api = require('./routes/api')
 
+app.use(session)
+
 io.use(sharedsession(session))
 
 app.set('views','./views')
@@ -26,6 +28,8 @@ app.set('views','./views')
 app.set('view engine','ejs')
 
 app.use(express.static('./public'))
+
+app.use(express.static('./node_modules'))
 
 app.use('/',index)
 

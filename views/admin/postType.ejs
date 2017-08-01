@@ -1,5 +1,5 @@
 <% include ./header.ejs %>
- <main class="mn-inner">
+ <main class="mn-inner" ng-controller="postTypeCtrl">
                 <div class="row">
                     <div class="col s12">
                         <div class="page-title">Danh sach thuoc loai</div>
@@ -10,34 +10,43 @@
                                 <table class="responsive-table">
                                     <thead>
                                         <tr>
-                                            <th data-field="id">Name</th>
-                                            <th data-field="name">Item Name</th>
-                                            <th data-field="price">Item Price</th>
+                                            <th data-field="id">Tên</th>
+                                            <th data-field="name">Đường dẫn </th>
+                                            <th data-field="price">Xử lí</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Alvin</td>
-                                            <td>Eclair</td>
-                                            <td>$0.87</td>
+                                        <tr ng-repeat="type in types">
+                                            <td>{{type.name}}</td>
+                                            <td>{{type.url}}</td>
+                                            <td><button type="submit" class="btn blue" ng-click="btn_edit(type)">Chỉnh sửa</button> <button type="submit" class="btn blue" ng-click="btn_del(type)">Xoá</button></td>
                                         </tr>
-                                        <tr>
-                                            <td>Alan</td>
-                                            <td>Jellybean</td>
-                                            <td>$3.76</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jonathan</td>
-                                            <td>Lollipop</td>
-                                            <td>$7.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shannon</td>
-                                            <td>KitKat</td>
-                                            <td>$9.99</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
+
+                                <div class="row" ng-hide="formAdd">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input type="text" id="name" ng-model="type.name" class="validate">
+                                                <label for="name">Tên </label>
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <textarea ng-model="type.content" class="materialize-textarea" length="270"></textarea>
+                                                <label for="content">Nội dung</label>
+                                            </div>
+                                            </div>
+                                            </form>
+                                            <button type="submit" class="btn blue" ng-click="typeAdd()">Thêm loại bài viết </button>
+                                            </div>
+
+                                      <div ng-show="formAdd">
+                                          <button type="submit" class="btn blue" ng-click="btn_add()">
+                                              Thêm loại bài viết 
+                                          </button>
+                                      </div>
+                                     
                             </div>
                         </div>
                     </div>

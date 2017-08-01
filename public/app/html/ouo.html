@@ -1,0 +1,35 @@
+
+
+<md-dialog>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Rut gon link</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+      <label>Duong dan</label>
+        <input type="text" ng-model="input" class="validate">
+        <label>Link da duoc rut gon</label>
+        <input type="text" ng-model="output" class="validate">
+      </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+    <md-button ng-click="rutgon()" class="md-primary">
+        Rut gon
+      </md-button>
+      <md-button ng-click="cancel()" class="md-primary">
+        Thoat
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+

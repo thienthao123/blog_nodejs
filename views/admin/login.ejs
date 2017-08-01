@@ -9,11 +9,13 @@
         <meta name="author" content="Steelcoders" />
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="/assets/css/alpha.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>  
         <style type="text/css">
         <% include ../../public/assets/plugins/materialize/css/materialize.min.css  %>
         <% include ../../public/assets/plugins/material-preloader/css/materialPreloader.min.css %>
         <% include ../../public/assets/css/custom.css %>
         </style>
+
         
     </head>
     <body class="signin-page">
@@ -68,12 +70,13 @@
                                       <span class="card-title">Sign In</span>
                                        <div class="row">
                                            <form class="col s12" action="/admin/login" method="POST">
+                                           <%- csrf %>
                                                <div class="input-field col s12">
-                                                   <input id="email" type="email" class="validate">
+                                                   <input name="email" type="email" class="validate">
                                                    <label for="email">Email</label>
                                                </div>
                                                <div class="input-field col s12">
-                                                   <input id="password" type="password" class="validate">
+                                                   <input name="password" type="password" class="validate">
                                                    <label for="password">Password</label>
                                                </div>
                                                <div class="col s12 right-align m-t-sm">
@@ -96,6 +99,12 @@
         <% include ../../public/assets/plugins/material-preloader/js/materialPreloader.min.js %>
         <% include ../../public/assets/plugins/jquery-blockui/jquery.blockui.js %>
         <% include ../../public/assets/js/alpha.min.js %>
+        <% include ../../public/assets/plugins/sweetalert/sweetalert.min.js %>
         </script>
+        <% if (msgErr) { %> 
+        <script type="text/javascript">
+           swal("IP : <%= ip %>", "<%= msgErr %>", "error");
+        </script>
+        <% } %>
     </body>
 </html>

@@ -1,0 +1,109 @@
+<% include ./header.ejs %>
+<main class="mn-inner">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="page-title">Form Elements</div>
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                            <span>First Name</span>
+                                                <input name="first" value="<%= user.firstname %>" type="text" class="validate">
+                                            </div>
+                                            <div class="input-field col s6">
+                                            <span>Last Name</span>
+                                                <input name="last" value="<%= user.lastname %>" type="text" class="validate">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Facebook</span>
+                                                <input name="fb" value="<%= user.facebook%>" type="text" class="validate">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Email</span>
+                                                <input name="email" value="<%= user.email %>" type="email" class="validate">
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Email</span>
+                                                <input name="email2" value="<%= user.email2 %>" type="email" class="validate">
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Work</span>
+                                                <input name="work" value="<%= user.work[0] %>" type="text" class="validate">
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Work</span>
+                                                <input name="work2"  value="<%= user.work[1] %>" type="text" class="validate">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m12 l6">
+                    <div class="card">
+                            <div class="card-content">
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Username</span>
+                                                <input disabled value="<%= user.username %>" type="text" class="validate">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Password old</span>
+                                                <input name="password" type="password" class="validate">
+                                            </div>
+                                        </div>
+
+                                   <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Password new</span>
+                                                <input name="password" type="password" class="validate">
+                                            </div>
+                                        </div>
+
+                                    <div class="row">
+                                            <div class="input-field col s12">
+                                            <span>Password confirm</span>
+                                                <input name="password" type="password" class="validate">
+                                            </div>
+                                        </div>
+                                    <div class="row">
+                                         <div class="file-field input-field">
+                                                <div class="btn teal lighten-1">
+                                                    <span>File</span>
+                                                    <input type="file">
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate" type="text">
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <button type="submit" class="btn blue">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+<% include ./footer.ejs %>

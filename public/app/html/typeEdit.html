@@ -1,0 +1,35 @@
+<md-dialog>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Chỉnh sửa {{typeEdit.name}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+      <label>Tên </label>
+        <input type="text" ng-model="typeEdit.name" class="validate">
+        <label>Đường dẩn </label>
+        <input type="text" ng-model="typeEdit.url" class="validate">
+        <label>Nội dung </label>
+        <textarea  class="materialize-textarea" length="270" ng-model="typeEdit.content"></textarea>
+      </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+    <md-button ng-click="edit(typeEdit)" class="md-primary">
+        Chỉnh sửa
+      </md-button>
+      <md-button ng-click="cancel()" class="md-primary">
+        Thoát 
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+

@@ -1,0 +1,23 @@
+<md-dialog>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Bạn muốn xoá {{type.name}} ?</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-actions layout="row">
+    <md-button ng-click="del(type._id)" class="md-primary">
+        Đồng ý
+      </md-button>
+      <md-button ng-click="cancel()" class="md-primary">
+        Thoát
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
