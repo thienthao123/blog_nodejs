@@ -16,7 +16,7 @@ var Post = require('../models/post')
 
 var User = require('../models/user')
 
-const domain = "http://"+os.hostname()+"/"
+const domain = "https://vid3o.herokuapp.com/"
 
 
 app.get('/', (req,res) => {

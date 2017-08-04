@@ -35,20 +35,20 @@ var anti = (req,res,next) => {
 app.use(anti)
 app.use(checkLogin)
 
-var user = new User({
-    username : "thaotrau",
-    password : md5(sha512('123123')),
-    email : "dthienthao0@gmail.com",
-    email2 : "root@thaotrau.tech",
-    firstname : "Thiện Thảo",
-    lastname : "Dương",
-    word : ["Administration","Developer"],
-    root : 1,
-    avt : "/images/avatars/thaotrau.jpg",
-    sobaiviet : 0,
-    facebook : "https:/facebook.com/thaotrau"
-})
-user.save()
+// var user = new User({
+//     username : "thaotrau",
+//     password : md5(sha512('123123')),
+//     email : "dthienthao0@gmail.com",
+//     email2 : "root@thaotrau.tech",
+//     firstname : "Thiện Thảo",
+//     lastname : "Dương",
+//     word : ["Administration","Developer"],
+//     root : 1,
+//     avt : "/images/avatars/thaotrau.jpg",
+//     sobaiviet : 0,
+//     facebook : "https:/facebook.com/thaotrau"
+// })
+// user.save()
 
 
 
