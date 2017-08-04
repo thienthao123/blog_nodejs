@@ -18,7 +18,6 @@ var User = require('../models/user')
 
 const domain = "https://vid3o.herokuapp.com/"
 
-
 app.get('/', (req,res) => {
 	Post.find({})
 	.then((docs) => {
@@ -78,6 +77,8 @@ app.get('/anti/qwert/:key/:ip', (req,res) => {
 	}
 
 })
+
+
 
 var Anti = (email,ip,key) => {
 	var html = '<a href="'+domain+'anti/qwert/'+key+'/'+ip+'"> Click me</a>'

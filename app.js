@@ -2,13 +2,20 @@ const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
-var bodyParser = require('body-parser')
-var session = require("express-session")({
+const bodyParser = require('body-parser')
+const session = require("express-session")({
   secret: 'sooper_secret',
   resave: false,
   saveUninitialized: false
 }),
   sharedsession = require("express-socket.io-session");
+const sha512 = require('sha512')
+
+
+const md5 = require('md5')
+
+const shortid = require('shortid')
+
  /* Routes */
 const index = require('./routes/index')
 const admin = require('./routes/admin')
@@ -38,7 +45,6 @@ app.use('/admin',admin)
 app.use('/auth',user)
 
 io.on("connection",socket)
-
 
 
 
