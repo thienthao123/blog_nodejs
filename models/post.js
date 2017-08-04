@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
     useMongoClient: true
 } 
 var textSearch = require('mongoose-text-search');
-var  connection=  mongoose.connect('mongodb://localhost:27017/blog',dbOpt);
+var  connection=  mongoose.connect('mongodb://root:123@ds143221.mlab.com:43221/mydbthaotrau',dbOpt);
 
 autoIncrement.initialize(connection);
 var Schema = new mongoose.Schema ({
@@ -17,7 +17,8 @@ var Schema = new mongoose.Schema ({
 	cmt :  Number,
 	views : Number,
 	idtype : Number,
-	noibat : Boolean
+	noibat : Boolean,
+	tags : [String]
 });
 Schema.plugin(autoIncrement.plugin, 'post');
 Schema.plugin(textSearch);

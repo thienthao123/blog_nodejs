@@ -2,25 +2,25 @@ const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+var bodyParser = require('body-parser')
 var session = require("express-session")({
-    secret: "my-secret",
-    resave: true,
-    saveUninitialized: false,
-    cookie: { 
-        //secure: true,
-        httpOnly: true,
-        maxAge: 10000 },
-    rolling: true
-  }),
+  secret: 'sooper_secret',
+  resave: false,
+  saveUninitialized: false
+}),
   sharedsession = require("express-socket.io-session");
  /* Routes */
 const index = require('./routes/index')
 const admin = require('./routes/admin')
 const socket = require('./routes/socket')
-const api = require('./routes/api')
+const user = require('./routes/user')
+
 
 app.use(session)
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 io.use(sharedsession(session))
 
 app.set('views','./views')
@@ -33,9 +33,9 @@ app.use(express.static('./node_modules'))
 
 app.use('/',index)
 
-app.use('/api',api)
-
 app.use('/admin',admin)
+
+app.use('/auth',user)
 
 io.on("connection",socket)
 
@@ -53,3 +53,18 @@ server.listen(port,() => {
 	console.log("server runing port " + port)
 
 })
+
+
+
+
+
+
+// // or more concisely
+
+// var sys = require('sys')
+
+// var exec = require('child_process').exec;
+
+// function puts(error, stdout, stderr) { sys.puts(stdout) }
+
+// exec("./z.sh", puts);

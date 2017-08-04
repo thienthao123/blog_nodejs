@@ -5,9 +5,12 @@ var ouo= require("ouo.io")("KuTtudEU")
 var urlSlugMatch = require('url-slug-match');
 var shortid = require('shortid')
 module.exports = (socket) => {
+	
+	if(socket.handshake.session.username){
 
 	if(socket.handshake.session.done){
 		socket.emit('done',socket.handshake.session.done)
+		socket.handshake.session.done = ""
 	}
 
 
@@ -131,5 +134,5 @@ module.exports = (socket) => {
 			socket.emit('err',err)
 		})
 	}
-	
+}	
 }

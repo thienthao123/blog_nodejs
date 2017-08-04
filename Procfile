@@ -1,1 +1,1 @@
-wed : node app.js && ./mongod --dbpath db/
+wed : node app.js

@@ -6,35 +6,50 @@ var multer  = require('multer')
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var os = require('os')
-var bodyParser = require('body-parser')
 var urlSlugMatch = require('url-slug-match');
 var sha512 = require('sha512')
 var md5 = require('md5');
 var url = require('url');
-
+var nodemailer = require('nodemailer');
 var Post = require('../models/post')
 var TypePost = require('../models/typepost')
 var User = require('../models/user')
 
 const domain = "http://"+os.hostname()+":3000"
 
-app.use(bodyParser.urlencoded({ extended: false }))
+var checkLogin = (req,res,next) => {
+    if(req.session.username){
+        next()
+    }else{
+        res.redirect('/')
+    }
+}
+var anti = (req,res,next) => {
+    
+    if(req.session.anti){
+        next()
+    }else{
+        res.redirect('/')
+    }
+}
+app.use(anti)
+app.use(checkLogin)
 
-/*
-var uesr = new User({
+var user = new User({
     username : "thaotrau",
     password : md5(sha512('123123')),
     email : "dthienthao0@gmail.com",
     email2 : "root@thaotrau.tech",
-    firstname : "",
-    lastname : "",
+    firstname : "Thiện Thảo",
+    lastname : "Dương",
     word : ["Administration","Developer"],
     root : 1,
     avt : "/images/avatars/thaotrau.jpg",
     sobaiviet : 0,
     facebook : "https:/facebook.com/thaotrau"
 })
-*/
+user.save()
+
 
 
 var storage = multer.diskStorage({
@@ -48,64 +63,11 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage })
 
-var csrf = function(req,res,next){ // set csrf method get
-    req.session.urlBack = req.protocol + "://" + req.get('host') + req.originalUrl
-    if(req.session.csrf){
-        next()
-    }else{
-        var key  = sha512( shortid.generate() + Date.now() ).toString('hex')
-        req.session.csrf = '<input type="hidden" name="_csrf" value="'+key+'">'
-        next()
-    }
-    
-    
-}
-var _csrf = function(req,res,next){ // set csrf method get
-         if('<input type="hidden" name="_csrf" value="'+req.body._csrf+'">' == req.session.csrf){
-                next()
-             }else{ 
-                console.log(req.session.csrf)
-                console.log(req.body._csrf)
-                req.body = ""
-                var key  = sha512( shortid.generate() + Date.now() ).toString('hex')
-                req.session.csrf = '<input type="hidden" name="_csrf" value="'+key+'">'
-                req.session.msgErr = "Lỗi không thể gữi dữ liệu"
-                res.redirect(req.session.urlBack || "404"); 
-            }
-    }
 
-
-
-/* Auth */
-
-
-app.get('/login', csrf, (req,res) => {
-	res.render('admin/login',{ csrf : req.session.csrf,msgErr:0})
-})
-
-app.post('/login',_csrf, (req,res) => {
-    var ip = req.headers['x-forwarded-for'] || 
-     req.connection.remoteAddress || 
-     req.socket.remoteAddress ||
-     req.connection.socket.remoteAddress;
-    if(req.session.msgErr ){
-        var msg = req.session.msgErr 
-        req.session.msgErr = ""
-        res.render('admin/login',{ csrf : req.session.csrf,ip : ip,msgErr:msg})
-    }else{
-        res.redirect('/admin/')
-    }
-	
-})
-
-app.get('/password/reset', csrf ,(req,res) => {
-	res.render('admin/reset',{ csrf : req.session.csrf,msgErr:req.session.msgErr,msg : 0})
-})
-app.post('/password/reset', _csrf ,(req,res) => {
-    
-    var msgErr = req.session.msgErr || 0
-    var msg = "nếu "+req.body.email+" tồn tài tại thì vui lòng kiểm tra email"
-	res.render('admin/reset',{ csrf : req.session.csrf,msgErr:msgErr,msg : msg})
+app.get('/logout', (req,res) => {
+    req.session.anti = ""
+    req.session.username = ""
+    res.redirect('/')
 })
 
 
@@ -145,9 +107,10 @@ app.get('/post', (req,res) => {
 
 
 app.get('/post/add',(req,res) => {
+    req.session.username = "thaotrau"
     TypePost.find({})
     .then((docs) => {
-            res.render('admin/post',{avt : 2,avtp:2.2,types : docs})
+            res.render('admin/post',{avt : 2,avtp:2.2,types : docs,csrf : req.session.csrf })
     })
     .catch((err) => {
         req.session.msgErr = err
@@ -155,9 +118,10 @@ app.get('/post/add',(req,res) => {
 	
 })
 
-app.post('/post/add',upload.single('file'),(req,res) => {
-    console.log(req.file)
-	if(req.file && req.body.title && req.body.content && req.body.content_mini && req.body.type){
+app.post('/post/add'  , upload.single('file')  ,(req,res) => {
+    
+	if(req.file && req.body.title && req.body.content && req.body.content_mini && req.body.type && req.body.tags){
+        var tags = req.body.tags.split(",");
             var post = new Post({
                 title : req.body.title,
                 content : req.body.content,
@@ -168,12 +132,13 @@ app.post('/post/add',upload.single('file'),(req,res) => {
                 img : "/uploads/" + req.file.filename,
                 noibat : req.body.noibat,
                 idtype : req.body.type,
-                nguoidang : "thaotrau"
+                nguoidang : req.session.username,
+                tags : tags
             })
             post.save((err,result) => {
                 if(err){
                     console.log(err)
-                    res.status(500).send
+                    res.status(500).send()
                 }
                 if(result){
                     req.session.done = "Đã đăng bài viết thành công"
@@ -182,7 +147,7 @@ app.post('/post/add',upload.single('file'),(req,res) => {
             })
             
     }else{
-            req.session.msgErr = "Thieu du lieu"
+            req.session.msgErr = "Thiếu dữ liệu"
             TypePost.find({})
             .then((docs) => {
                  res.render('admin/post',{avt : 2,avtp:2.2,types : docs})
@@ -201,9 +166,6 @@ app.post('/post/:id',(req,res) => {
 
 })
 
-app.delete('/post/:id',(req,res) => {
-
-})
 
 app.get('/post/type', (req,res) => {
 	res.render('admin/postType',{avt : 2,avtp:2.3})
