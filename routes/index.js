@@ -6,6 +6,8 @@ var sha512 = require('sha512')
 
 var md5 = require('md5')
 
+var os = require('os')
+
 var shortid = require('shortid')
 
 var app = express()
@@ -13,6 +15,8 @@ var app = express()
 var Post = require('../models/post')
 
 var User = require('../models/user')
+
+const domain = "http://"+os.hostname()+"/"
 
 
 app.get('/', (req,res) => {
@@ -76,7 +80,7 @@ app.get('/anti/qwert/:key/:ip', (req,res) => {
 })
 
 var Anti = (email,ip,key) => {
-	var html = '<a href="http://localhost:3000/anti/qwert/'+key+'/'+ip+'"> Click me</a>'
+	var html = '<a href="'+domain+'anti/qwert/'+key+'/'+ip+'"> Click me</a>'
 	let transporter = nodemailer.createTransport({
 	    host: 'smtp.gmail.com',
 	    port: 465,
