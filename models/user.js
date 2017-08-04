@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 	var dbOpt = { 
     useMongoClient: true
 } 
-var  connection=  mongoose.connect('mongodb://root:123@ds143221.mlab.com:43221/mydbthaotrau',dbOpt);
+var  connection=  mongoose.connect('mongodb://root:123@ds029476.mlab.com:29476/videov2',dbOpt);
 
 autoIncrement.initialize(connection);
 var Schema = new mongoose.Schema ({
